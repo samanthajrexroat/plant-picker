@@ -8,26 +8,14 @@ class App extends Component {
   constructor() {
     super();
     this.state = {
-      plants: [
-        {
-          name: 'African Violet',
-          id: 1
-        },
-        {
-          name: 'Golden Pothos',
-          id: 2
-        },
-        {
-          name: 'Lucky Bamboo',
-          id: 3
-        },
-        {
-          name: 'Rubber Plant',
-          id: 4
-        }
-      ]
-    
-    }
+      plants: [],
+    };
+  }
+
+  componentDidMount() {
+    fetch('https://jsonplaceholder.typicode.com/users')
+      .then(response => response.json())
+      .then((users) => console.log(users))
   }
 
   render() {
