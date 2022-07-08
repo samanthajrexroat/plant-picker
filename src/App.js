@@ -8,8 +8,25 @@ class App extends Component {
   constructor() {
     super();
     this.state = {
-      name: {firstName: "Sam", lastName: "Rex"},
-      company: "self",
+      plants: [
+        {
+          name: 'African Violet',
+          id: 1
+        },
+        {
+          name: 'Golden Pothos',
+          id: 2
+        },
+        {
+          name: 'Lucky Bamboo',
+          id: 3
+        },
+        {
+          name: 'Rubber Plant',
+          id: 4
+        }
+      ]
+    
     }
   }
 
@@ -17,27 +34,15 @@ class App extends Component {
 
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Hi {this.state.name.firstName} {this.state.name.lastName}, I work at {this.state.company}
-          </p>
-          <button onClick={()=> {
-            this.setState(
-              () => {
-                return {
-                  name: {firstName: "Kat", lastName: "Valken"},
-                };
-              },
-              () => {
-                console.log(this.state);
-              }
+        {
+          this.state.plants.map((plant) => {
+            return (
+              <div key={plant.id}>
+                <h1>{plant.name}</h1>
+              </div>
             );
-            
-          }}>
-            Change Name
-          </button>
-        </header>
+          })
+        }
       </div>
     );
   }
