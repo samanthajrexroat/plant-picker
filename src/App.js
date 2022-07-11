@@ -36,8 +36,8 @@ class App extends Component {
         <input className='search-box' type='search' placeholder="search plants" onChange={(event) => {
           console.log(event.target.value);
           // [{ name: 'Leanne'}, { name: 'Sam'}]
-          const filteredPlants = this.state.plants.filter(() => {
-            
+          const filteredPlants = this.state.plants.filter((plant) => {
+            plant.name.includes(event.target.value)
           })
         }}/>
         {this.state.plants.map((plant) => {
