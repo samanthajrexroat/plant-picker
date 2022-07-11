@@ -11,7 +11,6 @@ class App extends Component {
       plants: [],
       searchField: ''
     };
-    console.log('constructor')
   }
 
   componentDidMount() {
@@ -22,9 +21,6 @@ class App extends Component {
         this.setState(
           () => {
             return { plants: users };
-          },
-          () => {
-            console.log(this.state);
           }
         )
       );
@@ -39,7 +35,6 @@ class App extends Component {
   }
 
   render() {
-    console.log('render');
     
     const { plants, searchField } = this.state;
     const { onSearchChange } = this;
@@ -59,7 +54,7 @@ class App extends Component {
             </div>
           );
         })} */}
-        <CardList />
+        <CardList plants={filteredPlants}/>
       </div>
     );
   }
