@@ -32,8 +32,6 @@ class App extends Component {
 
   onSearchChange = (event) => {
     const searchField = event.target.value.toLocaleLowerCase();
-    // [{ name: 'Leanne'}, { name: 'Sam'}]
-  
     // Update state with the new array of plants from the search.
     this.setState(() => {
       return { searchField };
@@ -42,15 +40,18 @@ class App extends Component {
 
   render() {
     console.log('render');
+    
+    const { plants, searchField } = this.state;
+    const { onSearchChange } = this;
 
-    const filteredPlants = this.state.plants.filter((plant) => {
+    const filteredPlants = plants.filter((plant) => {
       // if the name of the plant includes the search request, create a new array of those plants.
-      return plant.name.toLocaleLowerCase().includes(this.state.searchField)
+      return plant.name.toLocaleLowerCase().includes(searchField)
     });
 
     return (
       <div className="App">
-        <input className='search-box' type='search' placeholder="search plants" onChange={this.onSearchChange}/>
+        <input className='search-box' type='search' placeholder="search plants" onChange={onSearchChange}/>
         {filteredPlants.map((plant) => {
           return (
             <div key={plant.id}>
