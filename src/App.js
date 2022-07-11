@@ -35,7 +35,7 @@ class App extends Component {
   }
 
   render() {
-    
+    console.log('render from AppJS')
     const { plants, searchField } = this.state;
     const { onSearchChange } = this;
 
