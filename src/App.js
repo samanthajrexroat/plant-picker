@@ -37,7 +37,12 @@ class App extends Component {
           console.log(event.target.value);
           // [{ name: 'Leanne'}, { name: 'Sam'}]
           const filteredPlants = this.state.plants.filter((plant) => {
-            plant.name.includes(event.target.value)
+            // if the name of the plant includes the search request, create a new array of those plants.
+            return plant.name.includes(event.target.value)
+          });
+          // Update state with the new array of plants from the search.
+          this.setState(() => {
+            return { plants: filteredPlants };
           })
         }}/>
         {this.state.plants.map((plant) => {
