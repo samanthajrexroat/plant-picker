@@ -1,5 +1,5 @@
 // import { Component } from "react";   --- Class based
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 import CardList from "./components/card-list/card-list.component";
 import SearchBox from "./components/search-box/search-box.component";
@@ -8,13 +8,23 @@ import React from "react";
 
 const App = () => {
   const [searchField, setSearchField] = useState('') //[value, setValue]
-  console.log(searchField)
+  const [plants, setPlants] = useState([]);
+
+  console.log('render');
+
+  fetch("https://jsonplaceholder.typicode.com/users")
+        .then((response) => response.json())
+        .then((users) => setPlants(users));
 
   const onSearchChange = (event) => {
     const searchFieldString = event.target.value.toLocaleLowerCase();
     setSearchField(searchFieldString);
-    
   };
+
+  const filteredPlants = plants.filter((plant) => {
+          return plant.name.toLocaleLowerCase().includes(searchField);
+        });
+
   return (
     <div className="App">
       <h1 className="app-title">Plant Picker</h1>
@@ -23,7 +33,7 @@ const App = () => {
         placeholder="search plants"
         className="plants-search-box"
       />
-      {/* <CardList plants={filteredPlants} /> */}
+      <CardList plants={filteredPlants} />
     </div>
   );
 };
