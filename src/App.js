@@ -9,21 +9,27 @@ import React from "react";
 const App = () => {
   const [searchField, setSearchField] = useState('') //[value, setValue]
   const [plants, setPlants] = useState([]);
+  const [filteredPlants, setFilteredPlants] = useState(plants);
 
-  console.log('render');
+  useEffect(() => {
+    fetch("https://jsonplaceholder.typicode.com/users")
+    .then((response) => response.json())
+    .then((users) => setPlants(users));
+  }, []);
 
-  fetch("https://jsonplaceholder.typicode.com/users")
-        .then((response) => response.json())
-        .then((users) => setPlants(users));
+  useEffect(() => {
+    const newFilteredPlants = plants.filter((plant) => {
+      return plant.name.toLocaleLowerCase().includes(searchField);
+    });
+    setFilteredPlants(newFilteredPlants);
+  }, [plants, searchField]);
 
   const onSearchChange = (event) => {
     const searchFieldString = event.target.value.toLocaleLowerCase();
     setSearchField(searchFieldString);
   };
 
-  const filteredPlants = plants.filter((plant) => {
-          return plant.name.toLocaleLowerCase().includes(searchField);
-        });
+ 
 
   return (
     <div className="App">
