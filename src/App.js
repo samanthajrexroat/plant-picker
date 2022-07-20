@@ -1,58 +1,83 @@
-import { Component } from "react";
+// import { Component } from "react";   --- Class based
+import { useState } from 'react';
 
 import CardList from "./components/card-list/card-list.component";
 import SearchBox from "./components/search-box/search-box.component";
 import "./App.css";
+import React from "react";
 
+const App = () => {
+  const [searchField, setSearchField] = useState('') //[value, setValue]
+  console.log(searchField)
 
-class App extends Component {
-  constructor() {
-    super();
-    this.state = {
-      plants: [],
-      searchField: ''
-    };
-  }
+  const onSearchChange = (event) => {
+    const searchFieldString = event.target.value.toLocaleLowerCase();
+    setSearchField(searchFieldString);
+    
+  };
+  return (
+    <div className="App">
+      <h1 className="app-title">Plant Picker</h1>
+      <SearchBox
+        onChangeHandler={onSearchChange}
+        placeholder="search plants"
+        className="plants-search-box"
+      />
+      {/* <CardList plants={filteredPlants} /> */}
+    </div>
+  );
+};
 
-  componentDidMount() {
-    console.log('componentDidMount')
-    fetch("https://jsonplaceholder.typicode.com/users")
-      .then((response) => response.json())
-      .then((users) =>
-        this.setState(
-          () => {
-            return { plants: users };
-          }
-        )
-      );
-  }
+// class App extends Component {
+//   constructor() {
+//     super();
+//     this.state = {
+//       plants: [],
+//       searchField: "",
+//     };
+//   }
 
-  onSearchChange = (event) => {
-    const searchField = event.target.value.toLocaleLowerCase();
-    // Update state with the new array of plants from the search.
-    this.setState(() => {
-      return { searchField };
-    });
-  }
+//   componentDidMount() {
+//     console.log("componentDidMount");
+//     fetch("https://jsonplaceholder.typicode.com/users")
+//       .then((response) => response.json())
+//       .then((users) =>
+//         this.setState(() => {
+//           return { plants: users };
+//         })
+//       );
+//   }
 
-  render() {
-    console.log('render from AppJS')
-    const { plants, searchField } = this.state;
-    const { onSearchChange } = this;
+//   onSearchChange = (event) => {
+//     const searchField = event.target.value.toLocaleLowerCase();
+//     // Update state with the new array of plants from the search.
+//     this.setState(() => {
+//       return { searchField };
+//     });
+//   };
 
-    const filteredPlants = plants.filter((plant) => {
-      // if the name of the plant includes the search request, create a new array of those plants.
-      return plant.name.toLocaleLowerCase().includes(searchField)
-    });
+//   render() {
+//     console.log("render from AppJS");
+//     const { plants, searchField } = this.state;
+//     const { onSearchChange } = this;
 
-    return (
-      <div className="App">
-        <h1 className="app-title">Plant Picker</h1>
-        <SearchBox onChangeHandler={onSearchChange} placeholder='search plants' className='plants-search-box'/>
-        <CardList plants={filteredPlants}/>
-      </div>
-    );
-  }
-}
+//     const filteredPlants = plants.filter((plant) => {
+//       // if the name of the plant includes the search request, create a new array of those plants.
+//       return plant.name.toLocaleLowerCase().includes(searchField);
+//     });
+
+//     return (
+//       <div className="App">
+//         <h1 className="app-title">Plant Picker</h1>
+//         <SearchBox
+//           onChangeHandler={onSearchChange}
+//           placeholder="search plants"
+//           className="plants-search-box"
+//         />
+//         <CardList plants={filteredPlants} />
+//       </div>
+//     );
+//   }
+// }
 
 export default App;
